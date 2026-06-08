@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI辅助数据治理 · 服务能力建设</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans SC', sans-serif; background: #f8f9fa; color: #333; line-height: 1.7; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* Hero */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: white; padding: 80px 0 60px; text-align: center;
+}
+.hero .tag {
+    display: inline-block; background: rgba(255,255,255,0.1);
+    padding: 4px 16px; border-radius: 20px; font-size: 12px;
+    letter-spacing: 3px; margin-bottom: 20px; color: #aaa;
+}
+.hero h1 { font-size: 36px; font-weight: 900; margin-bottom: 8px; }
+.hero .hl { font-size: 18px; color: #e74c3c; margin-bottom: 20px; font-weight: 300; }
+.hero .line { width: 60px; height: 3px; background: #e74c3c; margin: 0 auto 24px; }
+.hero p { max-width: 700px; margin: 0 auto; color: #aaa; font-size: 14px; }
+
+/* Stats */
+.stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    background: white; border-bottom: 1px solid #eee;
+}
+.stat {
+    text-align: center; padding: 28px 16px; border-right: 1px solid #f0f0f0;
+}
+.stat:last-child { border-right: none; }
+.stat .num { font-size: 32px; font-weight: 900; color: #e74c3c; }
+.stat .label { font-size: 12px; color: #999; margin-top: 4px; }
+
+/* Section */
+.section { padding: 60px 0; }
+.section.alt { background: white; }
+.section h2 {
+    font-size: 24px; font-weight: 700; margin-bottom: 4px;
+    display: flex; align-items: center; gap: 10px;
+}
+.section h2 .icon { font-size: 28px; }
+.section .subtitle {
+    font-size: 13px; color: #999; margin-bottom: 30px;
+    border-bottom: 2px solid #e74c3c; padding-bottom: 8px;
+}
+
+/* Cards */
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.card {
+    background: white; border-radius: 8px; padding: 20px 24px;
+    border: 1px solid #eee; transition: all 0.2s;
+}
+.card:hover { border-color: #e74c3c; box-shadow: 0 2px 12px rgba(231,76,60,0.1); }
+.card h3 { font-size: 15px; font-weight: 700; color: #e74c3c; margin-bottom: 6px; }
+.card p { font-size: 13px; color: #666; }
+.card .meta { font-size: 11px; color: #bbb; margin-top: 8px; }
+.card .status {
+    display: inline-block; font-size: 10px; padding: 1px 8px;
+    border-radius: 10px; font-weight: 600; margin-left: 6px;
+}
+.status.done { background: #d4edda; color: #155724; }
+.status.progress { background: #fff3cd; color: #856404; }
+.status.pending { background: #f8f9fa; color: #6c757d; }
+
+/* Product Matrix */
+.matrix { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
+.matrix th {
+    background: #e74c3c; color: white; padding: 10px 14px;
+    text-align: left; font-weight: 600;
+}
+.matrix td { padding: 10px 14px; border: 1px solid #eee; }
+.matrix tr:nth-child(even) td { background: #fafafa; }
+.matrix .price { font-weight: 700; color: #e74c3c; white-space: nowrap; }
+.matrix .level { 
+    display: inline-block; width: 28px; height: 28px; line-height: 28px;
+    text-align: center; border-radius: 50%; color: white;
+    font-weight: 700; font-size: 12px;
+}
+.l1 { background: #95a5a6; } .l2 { background: #3498db; }
+.l3 { background: #e74c3c; } .l4 { background: #2ecc71; }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 28px; margin: 16px 0; }
+.timeline::before {
+    content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+    width: 2px; background: #e0e0e0;
+}
+.tl-item { position: relative; margin-bottom: 20px; }
+.tl-item::before {
+    content: ''; position: absolute; left: -24px; top: 6px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #e74c3c; border: 2px solid white;
+}
+.tl-item .phase { font-size: 11px; color: #e74c3c; font-weight: 700; }
+.tl-item h4 { font-size: 14px; font-weight: 600; margin: 2px 0; }
+.tl-item p { font-size: 13px; color: #666; }
+
+/* Tools */
+.tools { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.tool {
+    background: white; border-radius: 8px; padding: 16px 20px;
+    border-left: 3px solid #e74c3c; border: 1px solid #eee;
+    border-left-width: 3px;
+}
+.tool .p0 { 
+    display: inline-block; font-size: 10px; padding: 1px 6px;
+    background: #e74c3c; color: white; border-radius: 3px; font-weight: 700;
+    margin-bottom: 4px;
+}
+.tool h4 { font-size: 14px; font-weight: 600; }
+.tool p { font-size: 12px; color: #666; margin: 2px 0; }
+
+/* Footer */
+.footer {
+    background: #1a1a2e; color: #666; text-align: center;
+    padding: 30px; font-size: 12px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .cards, .tools { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="tag">GUANGDONG TELECOM DESIGN INSTITUTE</div>
+    <h1>AI辅助数据治理体系</h1>
+    <div class="hl">服务能力建设 · 开发现状</div>
+    <div class="line"></div>
+    <p>以DCMM贯标为敲门砖，以AI Agent为差异化，以设计院身份为信任背书——<br>帮助IT能力较弱又有钱的大型央国企，不换系统、不颠覆现有流程，建起一套能对标DCMM的AI辅助数据治理体系。</p>
+</div>
+
+<div class="stats">
+    <div class="stat"><div class="num">105</div><div class="label">治理概念库</div></div>
+    <div class="stat"><div class="num">2</div><div class="label">交付工具</div></div>
+    <div class="stat"><div class="num">6</div><div class="label">竞品监控</div></div>
+    <div class="stat"><div class="num">4</div><div class="label">产品层级</div></div>
+</div>
+
+<div class="section">
+<div class="container">
+<h2><span class="icon">🎯</span> 服务定位</h2>
+<div class="subtitle">Positioning &amp; Target</div>
+
+<div class="cards">
+<div class="card">
+<h3>目标客群</h3>
+<p>IT能力较弱又有钱的大型央国企（非运营商）。有数字化转型预算，有DCMM贯标压力，信任"国企服务国企"。</p>
+</div>
+<div class="card">
+<h3>核心差异化</h3>
+<p>① 非侵入式——不换现有系统 ② AI辅助——WrenAI语义层+Hermes Agent ③ 开源可审计 ④ 设计院国标背书</p>
+</div>
+<div class="card">
+<h3>入口产品</h3>
+<p>DCMM贯标辅导（30-50万/单）——帮客户做现状诊断→差距分析→贯标培训→评估申请</p>
+</div>
+<div class="card">
+<h3>核心产品</h3>
+<p>L2咨询规划+L3 AI治理平台打包（400-900万/项目）——咨询+平台一体化EPC交付</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="section alt">
+<div class="container">
+<h2><span class="icon">📦</span> 产品矩阵</h2>
+<div class="subtitle">四层服务，逐级递进</div>
+
+<table class="matrix">
+<tr><th style="width:60px">层级</th><th>产品</th><th>内容</th><th style="width:100px">定价</th></tr>
+<tr>
+<td><span class="level l1">L1</span></td>
+<td><strong>DCMM贯标辅导</strong></td>
+<td>现状诊断→差距分析→贯标培训→评估申请辅助</td>
+<td class="price">30-50万</td>
+</tr>
+<tr>
+<td><span class="level l2">L2</span></td>
+<td><strong>数据治理咨询规划</strong></td>
+<td>路线图设计、标准体系设计、组织制度设计</td>
+<td class="price">80-150万</td>
+</tr>
+<tr>
+<td><span class="level l3">L3</span></td>
+<td><strong>AI辅助治理平台</strong></td>
+<td>WrenAI语义层私有化 + Hermes Agent + 非侵入式数据管理工具</td>
+<td class="price">300-800万</td>
+</tr>
+<tr>
+<td><span class="level l4">L4</span></td>
+<td><strong>持续运营服务</strong></td>
+<td>年运维 + 模型优化 + 知识库更新 + 管理报表</td>
+<td class="price">50-120万/年</td>
+</tr>
+</table>
+<p style="font-size:13px;color:#e74c3c;font-weight:600;text-align:center;margin-top:8px;">推荐打包：L2+L3 = 400-900万/项目（咨询+平台一体化）</p>
+</div>
+</div>
+
+<div class="section">
+<div class="container">
+<h2><span class="icon">🔧</span> 工具链</h2>
+<div class="subtitle">已交付的工具（开源，可直接使用）</div>
+
+<div class="tools">
+<div class="tool">
+<span class="p0">P0</span>
+<h4>DCMM贯标辅助工具</h4>
+<p>75题 × 8能力域 × 28能力项，45分钟完成自评，输出4页PDF评估报告（含结论+明细+差距+改进建议）。支持交互/演示/数据重生成三种模式。</p>
+<p style="font-size:11px;color:#999;margin-top:4px;">dcmm_assessment_tool.py</p>
+</div>
+<div class="tool">
+<span class="p0">P0</span>
+<h4>成熟度快速评估</h4>
+<p>20题 × 9维度，15-20分钟快速摸底，输出一页纸执行摘要。适用于初次拜访客户时快速定位痛点，直接引出后续合作话题。</p>
+<p style="font-size:11px;color:#999;margin-top:4px;">maturity_quickcheck.py</p>
+</div>
+</div>
+
+<div style="margin-top:20px;">
+<h3 style="font-size:15px;font-weight:600;margin-bottom:8px;">📋 在途工具</h3>
+<table class="matrix">
+<tr><th>优先级</th><th>工具</th><th>说明</th></tr>
+<tr><td><span class="level l3">P1</span></td><td>非侵入式数据探查器</td><td>自动扫描现有系统，输出数据资产清单+质量初评</td></tr>
+<tr><td><span class="level l3">P2</span></td><td>CXO管理驾驶舱</td><td>WrenAI+Hermes Agent，自然语言问数+智能预警</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<div class="section alt">
+<div class="container">
+<h2><span class="icon">📡</span> 市场情报系统</h2>
+<div class="subtitle">从搜索模式切换为订阅模式</div>
+
+<div class="cards">
+<div class="card">
+<h3>🔴 竞品动态 · 每周</h3>
+<p>亿信华辰、普元信息、华为云Stack、百分点科技、用友——新品/融资/案例/人事变化扫描</p>
+<div class="meta">周一10:00 · 自动推送</div>
+</div>
+<div class="card">
+<h3>🟢 政策法规 · 每月</h3>
+<p>DCMM贯标动态、数据要素×行动计划、数据资源入表细则——政策解读+影响分析</p>
+<div class="meta">每月1日 · 自动扫描</div>
+</div>
+<div class="card">
+<h3>🟡 技术趋势 · 双周</h3>
+<p>WrenAI更新、语义层/NL2DSL进展、Data Agent+治理融合、MCP协议应用</p>
+<div class="meta">双周扫描 · KB归档</div>
+</div>
+<div class="card">
+<h3>📊 情报入库</h3>
+<p>每条情报结构化存档到知识库：竞品动态/政策法规/技术趋势/市场活动 四个子目录</p>
+<div class="meta">知识库 400-案例/数据治理/情报/</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="section">
+<div class="container">
+<h2><span class="icon">🗺️</span> 推进路线图</h2>
+<div class="subtitle">三阶段滚动推进，12个月见成效</div>
+
+<div class="timeline">
+<div class="tl-item">
+<div class="phase">第一阶段 · 0-1个月</div>
+<h4>启动准备</h4>
+<p>种子客户锁定 · Demo环境搭建 · 5-10人团队组建 · 知识体系团队内训</p>
+</div>
+<div class="tl-item">
+<div class="phase">第二阶段 · 1-3个月</div>
+<h4>标杆建设</h4>
+<p>第一个标杆项目完成（贯标+AI目录） · 发布白皮书 · 行业峰会发声</p>
+</div>
+<div class="tl-item">
+<div class="phase">第三阶段 · 3-12个月</div>
+<h4>规模化</h4>
+<p>团队扩充至20-30人 · 产品封装为标准软件包 · 渠道合作（用友/金蝶） · 3-5个标杆案例规模化推广</p>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px;">
+<div style="background:#fafafa;padding:14px;border-radius:6px;text-align:center;">
+<div style="font-size:24px;font-weight:900;color:#e74c3c;">500-1,500万</div>
+<div style="font-size:12px;color:#999;">第一年收入预估</div>
+</div>
+<div style="background:#fafafa;padding:14px;border-radius:6px;text-align:center;">
+<div style="font-size:24px;font-weight:900;color:#e74c3c;">2,000-5,000万</div>
+<div style="font-size:12px;color:#999;">第二年收入预估</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="section alt">
+<div class="container">
+<h2><span class="icon">📚</span> 知识体系</h2>
+<div class="subtitle">团队学习路径</div>
+
+<div class="cards">
+<div class="card">
+<h3>Day 1: 基础框架 <span class="status done">✅</span></h3>
+<p>数据治理概念、DAMA-DMBOK、DCMM、治理组织与角色</p>
+</div>
+<div class="card">
+<h3>Day 2: 核心技术 <span class="status done">✅</span></h3>
+<p>元数据管理 + 数据标准 + 数据模型 — 105概念一次性PDF交付</p>
+</div>
+<div class="card">
+<h3>Day 3: 质量+安全 <span class="status pending">⏳</span></h3>
+<p>数据质量六维度、主数据管理、数据安全分类分级</p>
+</div>
+<div class="card">
+<h3>Day 4-7: 深入学习 <span class="status pending">⏳</span></h3>
+<p>数据集成、生命周期、DCMM 8个能力域深度</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="footer">
+广东省电信规划设计院 · AI辅助数据治理 · 来福（Hermes Agent）驱动<br>
+页面生成：2026年6月8日 · 持续更新
+</div>
+
+</body>
+</html>
